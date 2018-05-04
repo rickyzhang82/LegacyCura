@@ -4,7 +4,7 @@
 %global _gitCura       __gitCura__
 %global _gitCuraEngine __gitCuraEngine__
 %global _gitPower      __gitPower__
-
+%global debug_package %{nil}
 
 Name:             %{_curaName}
 Version:          %{_version}
