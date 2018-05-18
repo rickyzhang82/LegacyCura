@@ -108,22 +108,6 @@ function gitClone
 	fi
 }
 
-function gitCloneIfFirstTime
-{
-	echo "Cloning $1 into $3"
-	echo "  with push URL $2"
-	if [ ! -d $3 ]; then
-		if [ ! -z "${4-}" ]; then
-			git clone $1 $3 --branch $4
-		else
-			git clone $1 $3
-		fi
-        cd $3
-		git config remote.origin.pushurl "$2"
-        cd -
-	fi
-}
-
 #############################
 # Actual build script
 #############################
@@ -169,10 +153,10 @@ fi
 if [ -d "C:/arduino-1.0.3" ]; then
 	ARDUINO_PATH=C:/arduino-1.0.3
 	ARDUINO_VERSION=103
-elif [ -d "/Applications/Arduino.app/Contents/Resources/Java" ]; then
-	ARDUINO_PATH=/Applications/Arduino.app/Contents/Resources/Java
-	ARDUINO_VERSION=$(defaults read /Applications/Arduino.app/Contents/Info.plist CFBundleGetInfoString | sed -e 's/\.//g')
-	PATH=$PATH:/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/
+elif [ -d "/Applications/Arduino.app/Contents/Java" ]; then
+	ARDUINO_PATH=/Applications/Arduino.app/Contents/Java
+	ARDUINO_VERSION=$(defaults read /Applications/Arduino.app/Contents/Info.plist CFBundleVersion | sed -e 's/\.//g')
+	PATH=$PATH:/Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/
 else
 	ARDUINO_PATH=/usr/share/arduino
 	ARDUINO_VERSION=105
@@ -195,7 +179,8 @@ if [ "$BUILD_TARGET" = "darwin" ]; then
 	rm -rf scripts/darwin/build
 	rm -rf scripts/darwin/dist
 
-	python build_app.py py2app
+    python2 build_app.py py2app
+
 	rc=$?
 	if [[ $rc != 0 ]]; then
 		echo "Cannot build app."
@@ -209,11 +194,13 @@ if [ "$BUILD_TARGET" = "darwin" ]; then
 	  ${CURA_ENGINE_REPO} \
 	  ${CURA_ENGINE_REPO_PUSHURL} \
 	  CuraEngine \
-	  ${CURA_ENGINE_BRANCH}
+	  ${CURA_ENGINE_REPO_BRANCH}
     if [ $? != 0 ]; then echo "Failed to clone CuraEngine"; exit 1; fi
-	$MAKE -C CuraEngine VERSION=${BUILD_NAME}
+    cd CuraEngine
+    sh clean-build.sh production 
+    cd ..
     if [ $? != 0 ]; then echo "Failed to build CuraEngine"; exit 1; fi
-	cp CuraEngine/build/CuraEngine scripts/darwin/dist/Cura.app/Contents/Resources/CuraEngine
+	cp CuraEngine/build/bin/CuraEngine scripts/darwin/dist/Cura.app/Contents/Resources/CuraEngine
 
 	cd scripts/darwin
 

@@ -33,3 +33,5 @@ output.txt
 *.bak
 CuraEngine/*
 Power/*
+.eggs/*
+*.dmg
