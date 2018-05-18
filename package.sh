@@ -432,7 +432,7 @@ function fedoraCreateSRPM() {
     "git@github.com:GreatFruitOmsk/Power" \
     "$_namePower"
 # clone tag 15.04.6
-  gitCloneIfFirstTime \
+  gitClone \
     "$CURA_ENGINE_REPO" \
     "$CURA_ENGINE_REPO_PUSHURL" \
     "$_nameCuraEngine" \

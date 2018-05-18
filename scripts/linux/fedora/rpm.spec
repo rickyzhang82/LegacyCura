@@ -16,7 +16,7 @@ License:          GPLv2+
 URL:              https://github.com/daid/Cura.git
 Source0:          %{_curaName}-%{_version}.tar.gz
 
-BuildRequires:    libstdc++-static, glibc-static
+BuildRequires:    libstdc++-static, glibc-static, cmake
 Requires:         wxPython, curl
 Requires:         python3-setuptools >= 0.6.34
 Requires:         python3-PyOpenGL >= 3.0.2, PyOpenGL >= 3.0.2
@@ -37,7 +37,9 @@ It's free software payed for and maintained by Ultimaker.
 
 
 %build
-make -C CuraEngine VERSION=%{_version}
+cd CuraEngine
+sh clean-build.sh production
+cd ..
 
 dstDir="%{_baseDir}/usr/share/cura"
 
@@ -48,7 +50,7 @@ cp -av -t  "$dstDir" \
   Cura \
   resources \
   plugins \
-  CuraEngine/build/CuraEngine \
+  CuraEngine/build/bin/CuraEngine \
   Power/power \
   scripts/linux/cura.py
 
