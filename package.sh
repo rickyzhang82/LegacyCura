@@ -22,7 +22,7 @@ BUILD_TARGET=${1:-none}
 ##Do we need to create the final archive
 ARCHIVE_FOR_DISTRIBUTION=1
 ##Which version name are we appending to the final archive
-export BUILD_NAME=15.04.7-RC5
+export BUILD_NAME=15.05-RC1
 TARGET_DIR=Cura-${BUILD_NAME}-${BUILD_TARGET}
 
 ##Which versions of external programs to use
@@ -31,7 +31,7 @@ WIN_PORTABLE_PY_VERSION=2.7.2.1
 ##Override cura engine
 CURA_ENGINE_REPO=https://github.com/rickyzhang82/CuraEngine.git
 CURA_ENGINE_REPO_PUSHURL=git@github.com:rickyzhang82/CuraEngine.git
-CURA_ENGINE_REPO_BRANCH=dev-15.04.6
+CURA_ENGINE_REPO_BRANCH=master
 
 ##Which CuraEngine to use
 if [ -z ${CURA_ENGINE_REPO:-} ]; then
