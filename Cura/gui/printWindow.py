@@ -1,7 +1,6 @@
 __copyright__ = "Copyright (C) 2013 David Braam - Released under terms of the AGPLv3 License"
 
 import wx
-import power
 import time
 import sys
 import os
@@ -325,7 +324,6 @@ class printWindowBasic(wx.Frame):
 			style=wx.ALIGN_CENTER)
 		self.powerWarningText.SetBackgroundColour('red')
 		self.powerWarningText.SetForegroundColour('white')
-		self.powerManagement = power.PowerManagement()
 		self.powerWarningTimer = wx.Timer(self)
 		self.Bind(wx.EVT_TIMER, self.OnPowerWarningChange, self.powerWarningTimer)
 		self.OnPowerWarningChange(None)
@@ -374,19 +372,7 @@ class printWindowBasic(wx.Frame):
 		preventComputerFromSleeping(True)
 
 	def OnPowerWarningChange(self, e):
-		type = self.powerManagement.get_providing_power_source_type()
-		if type == power.POWER_TYPE_AC and self.powerWarningText.IsShown():
-			self.powerWarningText.Hide()
-			self.panel.Layout()
-			self.Layout()
-			self.Fit()
-			self.Refresh()
-		elif type != power.POWER_TYPE_AC and not self.powerWarningText.IsShown():
-			self.powerWarningText.Show()
-			self.panel.Layout()
-			self.Layout()
-			self.Fit()
-			self.Refresh()
+                pass
 
 	def OnClose(self, e):
 		if self._printerConnection.hasActiveConnection():

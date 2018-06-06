@@ -22,7 +22,7 @@ BUILD_TARGET=${1:-none}
 ##Do we need to create the final archive
 ARCHIVE_FOR_DISTRIBUTION=1
 ##Which version name are we appending to the final archive
-export BUILD_NAME=15.05-RC1
+export BUILD_NAME=15.05-RC2
 TARGET_DIR=Cura-${BUILD_NAME}-${BUILD_TARGET}
 
 ##Which versions of external programs to use
@@ -178,8 +178,9 @@ if [ "$BUILD_TARGET" = "darwin" ]; then
 
 	rm -rf scripts/darwin/build
 	rm -rf scripts/darwin/dist
-
-    python2 build_app.py py2app
+    echo "NOTE: Make sure you install wxPython, use virtualenv and RTFM in README! [Hit enter]"
+    read CONFIRM_ANS
+    python build_app.py py2app
 
 	rc=$?
 	if [[ $rc != 0 ]]; then
