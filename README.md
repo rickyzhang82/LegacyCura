@@ -108,7 +108,7 @@ The working environment consist of build of Python, build of wxPython and all re
 We assume you already have Apple hardware with [64bit processor](http://support.apple.com/kb/HT3696) and you are familiar with tools like [virtualenv](http://pypi.python.org/pypi/virtualenv), [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) and [pip](http://www.pip-installer.org/en/latest/). Also ensure you have modern compiler installed.
 
 
-###Install Python
+### Install Python
 You'll need **non-system**, **framework-based**, **universal** with **deployment target set to 10.6** build of Python 2.7
 
 **non-system**: Output of
@@ -134,7 +134,7 @@ Note if you already have Python installed via Homebrew, you have to uninstall it
 You can also install [official build](http://www.python.org/ftp/python/2.7.3/python-2.7.3-macosx10.6.dmg).
 
 
-###Configure Virtualenv
+### Configure Virtualenv
 Create new virtualenv. If you have [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) installed:
 `mkvirtualenv Cura`
 
@@ -211,16 +211,16 @@ At this point virtualenv is configured for wxPython development.
 Remember to use `python` for pacakging and `pythonw` to run app for debugging.
 
 
-###Install Python Packages
+### Install Python Packages
 Required python packages are specified in *requirements.txt* and *requirements_darwin.txt*
 If you use virtualenv, installing requirements as easy as `pip install -r requirements_darwin.txt`
 
 
-###Install Arduino.app
+### Install Arduino.app
 [Arduino.app](http://www.arduino.cc/en/Main/Software) is required to compile certain components used by Cura. Tested version on Mac OS X is 1.0.5 but recent releases should also work.
 
 
-###Package Cura into application
+### Package Cura into application
 Ensure that virtualenv is activated, so `python` points to the python of your virtualenv (e.g. ~/.virtualenvs/Cura/bin/python). Use package.sh to build Cura:
 `./package.sh darwin`
 
