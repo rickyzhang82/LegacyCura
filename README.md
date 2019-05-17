@@ -109,64 +109,48 @@ We assume you already have Apple hardware with [64bit processor](http://support.
 
 
 ### Install Python
-You'll need **non-system**, **framework-based**, **universal** with **deployment target set to 10.6** build of Python 2.7
-
-**non-system**: Output of
-`python -c "import sys; print sys.prefix"`
-should *not* start with *"/System/Library/Frameworks/Python.framework/"*.
-
-**framework-based**: Output of
-`python -c "import distutils.sysconfig as c; print(c.get_config_var('PYTHONFRAMEWORK'))"`
-should be non-empty string. E.g. *Python*.
-
-**universal**: Output of
-``lipo -info `which python` ``
-should include both i386 and x86_64. E.g *"Architectures in the fat file: /usr/local/bin/python are: i386 x86_64"*.
-
-**deployment target set to 10.6**: Output of
-``otool -l `which python` ``
-should contain *"cmd LC_VERSION_MIN_MACOSX ... version 10.6"*.
-
-The easiest way to install it is via [Homebrew](http://mxcl.github.com/homebrew/) using the formula from Cura's repo:
-`brew install --build-bottle --fresh Cura/scripts/darwin/python.rb --universal`
-Note if you already have Python installed via Homebrew, you have to uninstall it first.
-
-You can also install [official build](http://www.python.org/ftp/python/2.7.3/python-2.7.3-macosx10.6.dmg).
-
+Install Python 2.7 from macport.
 
 ### Configure Virtualenv
-Create new virtualenv. If you have [virtualenvwrapper](http://virtualenvwrapper.readthedocs.org/en/latest/) installed:
-`mkvirtualenv Cura`
+```
+mkvirtualenv -p /opt/local/bin/python2 Cura
+workon Cura
+```
 
+### Install wxPython
 wxPython cannot be installed via pip, we have to build it from source by specifing prefix to our virtualenv.
 
-Assuming you have virtualenv at *~/.virtualenvs/Cura/* and [wxPython sources](http://sourceforge.net/projects/wxpython/files/wxPython/2.9.4.0/wxPython-src-2.9.4.0.tar.bz2) at *~/Downloads/wxPython-src-2.9.4.0/*:
+Assuming you have virtualenv at *~/.virtualenvs/Cura/* and clone [wxPython sources](https://github.com/rickyzhang82/wxpython-src-2.9.4.0) at *~/Downloads/wxPython-src-2.9.4.0/*.
+
+Prepare Mac OS SDK 10.11. Clone [legacy Maco OS SDK repository](https://github.com/rickyzhang82/MacOSX-SDKs) to */Users/Ricky/repo/github/MacOSX-SDKs*.
+
+Run bash script `sh scripts/darwin/setup-python-env.sh` to automate step 1 to 6
 
 1. `cd` into *~/Downloads/wxPython-src-2.9.4.0/* and configure the sources:
 
-        ./configure \
-        CFLAGS='-msse2 -mno-sse3 -mno-sse4' \
-        CXXFLAGS='-msse2 -mno-sse3 -mno-sse4' \
-        --disable-debug \
-        --enable-clipboard \
-        --enable-display \
-        --enable-dnd \
-        --enable-monolithic \
-        --enable-optimise \
-        --enable-std_string \
-        --enable-svg \
-        --enable-unicode \
-        --enable-universal_binary=i386,x86_64 \
-        --enable-webkit \
-        --prefix=$HOME/.virtualenvs/Cura/ \
-        --with-expat \
-        --with-libjpeg=builtin \
-        --with-libpng=builtin \
-        --with-libtiff=builtin \
-        --with-macosx-version-min=10.6 \
-        --with-opengl \
-        --with-osx_cocoa \
-        --with-zlib=builtin
+./configure \
+    CFLAGS='-msse2 -mno-sse3 -mno-sse4' \
+    CXXFLAGS='-msse2 -mno-sse3 -mno-sse4 -D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=1' \
+    --disable-debug \
+    --enable-clipboard \
+    --enable-display \
+    --enable-dnd \
+    --enable-monolithic \
+    --enable-optimise \
+    --enable-std_string \
+    --enable-svg \
+    --enable-unicode \
+    --enable-webkit \
+    --prefix=$HOME/.virtualenvs/Cura/ \
+    --with-expat \
+    --with-libjpeg=builtin \
+    --with-libpng=builtin \
+    --with-libtiff=builtin \
+    --with-macosx-sdk=/Users/Ricky/repo/github/MacOSX-SDKs/MacOSX10.11.sdk \
+    --with-macosx-version-min=10.9 \
+    --with-opengl \
+    --with-osx_cocoa \
+    --with-zlib=builtin
 
 2. `make install`
     Note to speedup the process I recommend you to enable multicore build by adding the -j*cores* flag:
