@@ -31,7 +31,7 @@ WIN_PORTABLE_PY_VERSION=2.7.2.1
 ##Override cura engine
 CURA_ENGINE_REPO=https://github.com/rickyzhang82/CuraEngine.git
 CURA_ENGINE_REPO_PUSHURL=git@github.com:rickyzhang82/CuraEngine.git
-CURA_ENGINE_REPO_BRANCH=master
+CURA_ENGINE_REPO_BRANCH=$BUILD_NAME
 
 ##Which CuraEngine to use
 if [ -z ${CURA_ENGINE_REPO:-} ]; then
@@ -91,10 +91,10 @@ function gitClone
 		cd $3
 		git clean -dfx
 		git reset --hard
+        git fetch
 		if [ ! -z "${4-}" ]; then
-			git checkout $4
+			git checkout $4 -b $4
 		fi
-		git pull
 		cd -
 	else
 		if [ ! -z "${4-}" ]; then
@@ -416,10 +416,10 @@ function fedoraCreateSRPM() {
   local _nameCuraEngine="CuraEngine"
 
   gitClone \
-    "https://github.com/GreatFruitOmsk/Power" \
-    "git@github.com:GreatFruitOmsk/Power" \
+    "https://github.com/rickyzhang82/Power" \
+    "git@github.com:rickyzhang82/Power" \
     "$_namePower"
-# clone tag 15.04.6
+# clone by tag or branch
   gitClone \
     "$CURA_ENGINE_REPO" \
     "$CURA_ENGINE_REPO_PUSHURL" \
