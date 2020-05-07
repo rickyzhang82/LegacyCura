@@ -17,12 +17,12 @@ URL:              https://github.com/daid/Cura.git
 Source0:          %{_curaName}-%{_version}.tar.gz
 
 BuildRequires:    gcc-c++, libstdc++-static, glibc-static, cmake
-Requires:         wxPython, curl
-Requires:         python3-setuptools >= 0.6.34
-Requires:         python3-pyopengl >= 3.0.2
-Requires:         python3-pyserial >= 2.6, pyserial >= 2.6
-Requires:         python3-numpy >= 1.6.2, numpy >= 1.6.2
-Requires:         python3-power >= 1.2
+Requires:         wxPython, curl, mesa-libGLU
+Requires:         python2-setuptools >= 0.6.34
+Requires:         python2-pyopengl >= 3.0.2
+Requires:         python2-pyserial >= 2.6, pyserial >= 2.6
+Requires:         python2-numpy >= 1.6.2, numpy >= 1.6.2
+Requires:         python2-power >= 1.2
 
 
 %description
