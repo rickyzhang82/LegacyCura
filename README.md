@@ -50,12 +50,20 @@ To install the software that is required to build Cura, run the following
 commands:
 
 ```bash
-sudo yum install -y git rpmdevtools rpm-build mock arduino
+sudo dnf install -y git rpmdevtools rpm-build mock arduino
 
 # Ensure that the Arduino tools can be found by the build
 sudo mkdir -p /usr/share/arduino/hardware/tools/avr
 sudo ln -sf /usr/bin /usr/share/arduino/hardware/tools/avr/bin
 
+```
+
+To release for Fedora 29, make sure `default.cfg` symlink to feodar 29 x86_64.
+
+```bash
+cd /etc/mock
+ls -alh default.cfg 
+lrwxrwxrwx. 1 root root 20 May  6 17:03 default.cfg -> fedora-29-x86_64.cfg
 ```
 
 To build and install Cura, run the following commands:
