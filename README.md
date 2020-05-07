@@ -62,7 +62,7 @@ To build and install Cura, run the following commands:
 
 ```bash
 # Get the Cura software, only required once
-git clone https://github.com/daid/Cura.git Cura
+git clone https://github.com/rickyzhang82/LegacyCura.git Cura
 
 # Build for the current system
 cd Cura
@@ -81,6 +81,15 @@ Examples of building other configurations:
 # Since only the basename of the mock configurations is used, this also works:
 ./package.sh fedora /etc/mock/fedora-21-x86_64.cfg /etc/mock/fedora-rawhide-i386.cfg
 ```
+
+Fedora 29 in Virtual Box
+------------------------
+
+Since Fedora 30 discotinue Python 2, I have to migrate the Fedora 29 development environment to Virtualbox.
+
+1. Install Fedora 29.
+1. Install `mesa-libGLU`, `python2-pyopengl`.
+1. Run Gnome 3 in Xorg mode.
 
 Debian and Ubuntu Linux
 --------
